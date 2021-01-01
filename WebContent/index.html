@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div>
+        <span>name:</span><input type="text" id="name">
+    </div>
+
+    <div>
+        <span>chat:</span><input type="text" id="chat">
+        <button id="sendMessage">send</button>
+    </div>
+
+    <div>
+        <p>message:</p>
+        <textarea id="message"></textarea>
+    </div>
+
+
+    <script>
+
+        let host = window.location.host;
+        let path = window.location.pathname;
+        let context = path.substr(0, path.indexOf("/", 1));
+        let ws = "/WSServer";
+        let wsURL = "ws://" + host + context + ws;
+
+        let message = document.getElementById("message");
+        let webSocket = null;
+        
+        connectWS()
+
+        let name = document.getElementById("name");
+        let chat = document.getElementById("chat");
+        let sendBtn = document.getElementById("sendMessage");
+
+        sendBtn.addEventListener("click", () => {
+            if(chat.value != null && name.value != null) {
+                webSocket.send(name.value + ":" + chat.value);
+            }
+            chat.value = "";
+        })
+
+
+
+
+        function connectWS() {
+            webSocket = new WebSocket(wsURL);
+
+            webSocket.onopen = (e) => {
+            }
+
+            webSocket.onmessage = (e) => {
+               let resiveMessage = e.data + "\n";
+                message.insertAdjacentText("beforeend", resiveMessage);
+            }
+        }
+
+    </script>
+</body>
+</html>
