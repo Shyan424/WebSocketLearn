@@ -22,7 +22,8 @@ public class ServerPoint {
 	}
 	
 	@OnMessage
-	public void onMessage(Session session, String message) {
+	public void onMessage(String message) {
+		System.out.println(sessions.size());
 		sessions.forEach((s) -> {
 			s.getAsyncRemote().sendText(message);
 		});
@@ -30,8 +31,8 @@ public class ServerPoint {
 	}
 	
 	@OnClose
-	public void onClose() {
-		
+	public void onClose(Session session) {
+		sessions.remove(session);
 	}
 	
 }
