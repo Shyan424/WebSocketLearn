@@ -11,14 +11,14 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-// configurator = 設定檔名稱
-@ServerEndpoint(value = "/WSServer", configurator = GetHttpSessionConfig.class)
+// configurator = 設定檔名稱 , configurator = GetHttpSessionConfig.class
+@ServerEndpoint(value = "/WSServer")
 public class ServerPoint {
 	
 	public static Set<Session> sessions = Collections.synchronizedSet(new HashSet<Session>());
 
-	@OnOpen						// 必須要使用 EndpointConfig 才能拿到裡面的東西
-	public void OnOpen(Session session, EndpointConfig config) {
+	@OnOpen						// 必須要使用 EndpointConfig 才能拿到裡面的東西 , EndpointConfig config
+	public void OnOpen(Session session) {
 		
 //		config.getUserProperties().get("");		// 拿取方式
 		
