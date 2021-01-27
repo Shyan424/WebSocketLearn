@@ -18,7 +18,7 @@ public class ServerPoint {
 	public static Set<Session> sessions = Collections.synchronizedSet(new HashSet<Session>());
 
 	@OnOpen						// 必須要使用 EndpointConfig 才能拿到裡面的東西 , EndpointConfig config
-	public void OnOpen(Session session) {
+	public void OnOpen(Session session/*, EndpointConfig config*/) {
 		
 //		config.getUserProperties().get("");		// 拿取方式
 		
